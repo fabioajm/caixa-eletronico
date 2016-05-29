@@ -1,0 +1,30 @@
+{
+  "name": "ce-ui",
+  "version": "1.0.0",
+  "description": "Projeto front-end, que deve conter o automatizador de tarefas Gulp ou Grunt, e as telas do sistema",
+  "main": "gulpFile.js",
+  "dependencies": {
+    "gulp-inject": "^4.1.0",
+    "stream-series": "^0.1.1"
+  },
+  "devDependencies": {
+    "bower": "~1.7.9",
+    "event-stream": "^3.3.2",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.0",
+    "gulp-htmlmin": "^2.0.0",
+    "gulp-jshint": "^2.0.1",
+    "gulp-uglify": "^1.5.3",
+    "jshint": "^2.9.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "caixa",
+    "eletronico"
+  ],
+  "author": "fabioajm <fab.ajm@gmail.com>",
+  "license": "ISC"
+}
