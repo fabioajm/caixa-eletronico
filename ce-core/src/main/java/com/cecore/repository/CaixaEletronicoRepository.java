@@ -6,6 +6,6 @@ import com.cecore.model.CaixaEletronico;
 
 public interface CaixaEletronicoRepository extends JpaRepository<CaixaEletronico, Long>{
 
-	CaixaEletronico findByIdUsuario(String nome);
+	CaixaEletronico findByNome(String nome);
 
 }

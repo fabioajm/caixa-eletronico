@@ -29,7 +29,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.cecrud.CeCrudApplication;
 import com.cecrud.model.Usuario;
-import com.cecrud.model.UsuarioRepository;
+import com.cecrud.repository.UsuarioRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = CeCrudApplication.class)
@@ -103,6 +103,16 @@ public class UsuarioControllerTest {
 		         .andExpect(content().contentType(contentType))
 		         .andExpect(jsonPath("$[0].saldo").value(usuario.getSaldo()))
 		         .andExpect(jsonPath("$[0].nome").value(usuario.getNome()));
+	}
+	
+	@Test
+	public void recuperarUsuarioPorId() throws Exception {
+		usuarioRepository.save(usuario);
+		mockMvc.perform(get("/usuarios/" + usuario.getId()))
+		         .andExpect(status().isOk())
+		         .andExpect(content().contentType(contentType))
+		         .andExpect(jsonPath("$.saldo").value(usuario.getSaldo()))
+		         .andExpect(jsonPath("$.nome").value(usuario.getNome()));
 	}
 	
 }

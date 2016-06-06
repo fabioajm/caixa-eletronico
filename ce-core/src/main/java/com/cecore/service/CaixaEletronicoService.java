@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.cecore.exception.CaixaEletronicoNotFoundException;
 import com.cecore.model.CaixaEletronico;
@@ -16,20 +17,28 @@ public class CaixaEletronicoService {
 	@Autowired
 	private CaixaEletronicoRepository caixaEletronicoRepository;
 	
-	public void depositar(String idUsuario, List<Nota> notas) {
-		CaixaEletronico ce = caixaEletronicoRepository.findByIdUsuario(idUsuario);
+	@Autowired
+	private RestTemplate restTemplate;
+	
+	public void depositar(String nome, List<Nota> notas) {
+		CaixaEletronico ce = caixaEletronicoRepository.findByNome(nome);
 		if(ce == null){
-			ce  = new CaixaEletronico(idUsuario);
+			ce  = new CaixaEletronico(nome);
 		}
 		ce.depositarNotas(notas);
 		caixaEletronicoRepository.save(ce);
 	}
 
-	public List<Nota> sacar(String idUsuario, int valor) {
-		CaixaEletronico ce = caixaEletronicoRepository.findByIdUsuario(idUsuario);
+	public List<Nota> sacar(String nome, Long idUsuario, int valor) {
+		CaixaEletronico ce = caixaEletronicoRepository.findByNome(nome);
 		if(ce == null){
-			throw new CaixaEletronicoNotFoundException(idUsuario);
+			throw new CaixaEletronicoNotFoundException(nome);
 		}
+		Usuario usuario = restTemplate.getForObject("http://localhost:8082/usuarios/" + idUsuario, Usuario.class);
+		if(usuario == null){
+			
+		}
+		
 		List<Nota> notas = ce.sacar(valor);
 		caixaEletronicoRepository.save(ce);
 		return notas;

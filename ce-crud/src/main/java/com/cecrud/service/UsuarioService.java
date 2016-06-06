@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cecrud.exception.CadastroDuplicadoException;
 import com.cecrud.model.Usuario;
-import com.cecrud.model.UsuarioRepository;
+import com.cecrud.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
@@ -16,7 +16,7 @@ public class UsuarioService {
 	private UsuarioRepository repository;
 
 	public String save(Usuario usuario) {
-		Usuario u = repository.findOne(usuario.getNome());
+		Usuario u = repository.findByNome(usuario.getNome());
 		if(u != null){
 			throw new CadastroDuplicadoException(usuario.getNome());
 		}
@@ -26,6 +26,10 @@ public class UsuarioService {
 
 	public Collection<Usuario> findAll() {
 		return repository.findAll();
+	}
+
+	public Usuario findOne(Long id) {
+		return repository.findOne(id);
 	}
 
 }

@@ -16,19 +16,20 @@ import com.cecore.model.Nota;
 import com.cecore.service.CaixaEletronicoService;
 
 @RestController
+@RequestMapping("caixaeletronico/{nome}")
 public class CaixaEletronicoController {
 	
 	@Autowired
 	private CaixaEletronicoService caixaEletronicoService;
 	
 	@RequestMapping(path="/sacar/{idUsuario}/{valor}",method=RequestMethod.GET)
-	public List<Nota> sacar(@PathVariable String idUsuario, @PathVariable Integer valor){
-		return caixaEletronicoService.sacar(idUsuario, valor);
+	public List<Nota> sacar(@PathVariable String nome, @PathVariable Long idUsuario, @PathVariable Integer valor){
+		return caixaEletronicoService.sacar(nome, idUsuario, valor);
 	}
 	
-	@RequestMapping(path="/depositar/{idUsuario}", method=RequestMethod.POST)
-	public HttpEntity<?> depositar(@PathVariable String idUsuario, @RequestBody List<Nota> notas){
-		caixaEletronicoService.depositar(idUsuario, notas);
+	@RequestMapping(path="/depositar", method=RequestMethod.POST)
+	public HttpEntity<?> depositar(@PathVariable String nome, @RequestBody List<Nota> notas){
+		caixaEletronicoService.depositar(nome, notas);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 

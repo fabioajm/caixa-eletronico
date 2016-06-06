@@ -10,11 +10,13 @@ import javax.transaction.Transactional;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.web.client.RestTemplate;
 
 import com.cecore.CeCoreApplication;
 import com.cecore.exception.CaixaEletronicoNotFoundException;
@@ -30,6 +32,9 @@ public class CaixaEletronicoServiceTest {
 	
 	@Autowired
 	private CaixaEletronicoService caixaEletronicoService;
+	
+	/*@Mock
+	private RestTemplate restTemplate;*/
 	
 	@Autowired
 	private CaixaEletronicoRepository repository;
@@ -48,7 +53,7 @@ public class CaixaEletronicoServiceTest {
 		notas.add(new Nota(10, 2));
 		notas.add(new Nota(50, 1));
 		caixaEletronicoService.depositar(nome, notas );
-		assertEquals(new Integer(70), repository.findByIdUsuario(nome).getSaldo());
+		assertEquals(new Integer(70), repository.findByNome(nome).getSaldo());
 		
 	}
 	@Test
@@ -57,26 +62,28 @@ public class CaixaEletronicoServiceTest {
 		notas.add(new Nota(10, 2));
 		notas.add(new Nota(50, 1));
 		caixaEletronicoService.depositar(nome, notas );
-		assertEquals(new Integer(70), repository.findByIdUsuario(nome).getSaldo());
+		assertEquals(new Integer(70), repository.findByNome(nome).getSaldo());
 		caixaEletronicoService.depositar(nome, notas );
-		assertEquals(new Integer(140), repository.findByIdUsuario(nome).getSaldo());
+		assertEquals(new Integer(140), repository.findByNome(nome).getSaldo());
 		
 	}
 
 	@Test
 	public void sacarMil() {
+		Long idUsuario = 4l;
 		List<Nota> notas = new ArrayList<>();
 		notas.add(new Nota(100, 9));
 		notas.add(new Nota(50, 2));
 		notas.add(new Nota(10, 5));
 		caixaEletronicoService.depositar(nome, notas );
-		caixaEletronicoService.sacar(nome, 1000 );
-		assertEquals(new Integer(50), repository.findByIdUsuario(nome).getSaldo());
+		caixaEletronicoService.sacar(nome, idUsuario,  1000 );
+		assertEquals(new Integer(50), repository.findByNome(nome).getSaldo());
 	}
 	
 	@Test(expected=CaixaEletronicoNotFoundException.class)
 	public void sacarContaInexistente() {
-		caixaEletronicoService.sacar(nome, 1000 );
+		Long idUsuario = 1l;
+		caixaEletronicoService.sacar(nome, idUsuario, 1000 );
 	}
 
 }
