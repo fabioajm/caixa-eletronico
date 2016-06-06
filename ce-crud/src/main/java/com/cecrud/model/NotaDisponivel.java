@@ -1,4 +1,4 @@
-package com.cecore.model;
+package com.cecrud.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,8 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
+import com.cecrud.exception.ValorInvalidoException;
+
 @Entity
-public class Nota implements Comparable<Nota>{
+public class NotaDisponivel implements Comparable<NotaDisponivel>{
 	
 	@Id
 	@SequenceGenerator(name="nota_seq_id", initialValue=1, allocationSize=100)
@@ -16,11 +18,11 @@ public class Nota implements Comparable<Nota>{
 	private Integer quantidade;
 	private Integer valor;
 	
-	public Nota() {}
+	public NotaDisponivel() {}
 	
-	public Nota(Integer valor, int quantidade) {
-		this.valor = valor;
-		this.quantidade = quantidade;
+	public NotaDisponivel(Integer valor, int quantidade) {
+		setValor(valor); 
+		setQuantidade(quantidade);
 	}
 	public Long getId() {
 		return id;
@@ -32,12 +34,18 @@ public class Nota implements Comparable<Nota>{
 		return quantidade;
 	}
 	public void setQuantidade(Integer quantidade) {
+		if(quantidade < 0){
+			throw new ValorInvalidoException("Quantidade não pode ser negativo");
+		}
 		this.quantidade = quantidade;
 	}
 	public Integer getValor() {
 		return valor;
 	}
 	public void setValor(Integer valor) {
+		if(valor < 0){
+			throw new ValorInvalidoException("Valor não pode ser negativo");
+		}
 		this.valor = valor;
 	}
 	public void subtrairQuantidade(Integer quantidade){
@@ -56,7 +64,7 @@ public class Nota implements Comparable<Nota>{
 	}
 	
 	@Override
-	public int compareTo(Nota o) {
+	public int compareTo(NotaDisponivel o) {
 		return valor.compareTo(o.getValor());
 	}
 }

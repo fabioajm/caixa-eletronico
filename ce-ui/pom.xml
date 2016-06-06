@@ -59,7 +59,7 @@
 	
 	<build>
 		<plugins>
-			<plugin>
+			<!-- <plugin>
              <groupId>com.github.eirslett</groupId>
              <artifactId>frontend-maven-plugin</artifactId>
              <version>0.0.20</version>
@@ -99,7 +99,7 @@
                      <phase>generate-resources</phase>
                 </execution>
             </executions>
-         </plugin>
+         </plugin> -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

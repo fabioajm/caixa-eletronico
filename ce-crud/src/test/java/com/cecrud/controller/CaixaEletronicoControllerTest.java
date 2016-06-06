@@ -1,8 +1,8 @@
-package com.cecore.controller;
+package com.cecrud.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 import java.io.IOException;
@@ -17,7 +17,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -28,15 +27,15 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.cecore.CeCoreApplication;
-import com.cecore.model.Nota;
+import com.cecrud.CeCrudApplication;
+import com.cecrud.model.NotaDisponivel;
+import com.cecrud.repository.CaixaEletronicoRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = CeCoreApplication.class)
+@SpringApplicationConfiguration(classes = CeCrudApplication.class)
 @WebAppConfiguration
-@WebIntegrationTest(randomPort = true)
 @ActiveProfiles("test")
-public class ContarNotasControllerTest {
+public class CaixaEletronicoControllerTest {
 	
 	private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
 			MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
@@ -45,6 +44,9 @@ public class ContarNotasControllerTest {
 
 	@Autowired
 	private WebApplicationContext webApplicationContext;
+	
+	@Autowired
+	private CaixaEletronicoRepository repository;
 	
 	@SuppressWarnings("rawtypes")
 	private HttpMessageConverter mappingJackson2HttpMessageConverter;
@@ -62,28 +64,34 @@ public class ContarNotasControllerTest {
 	@Before
 	public void setup() throws Exception {
 		this.mockMvc = webAppContextSetup(webApplicationContext).build();
+		repository.deleteAllInBatch();
 	}
 
-
 	@Test
-	public void test() throws Exception {
-		 mockMvc.perform(get("/notas"))
-         .andExpect(status().isOk())
-         .andExpect(content().contentType(contentType))
-         .andExpect(jsonPath("$[0].valor").value(20))
-         .andExpect(jsonPath("$[1].valor").value(10));
-	}
-	
-	@Test
-	public void teste() throws IOException, Exception{
-		Nota dez = new Nota(10,1);
-		List<Nota>  notas = new ArrayList<>();
+	public void criar() throws IOException, Exception{
+		NotaDisponivel dez = new NotaDisponivel(10,5);
+		List<NotaDisponivel>  notas = new ArrayList<>();
 		notas.add(dez);
 		
-		  this.mockMvc.perform(post("/notas")
-	                .contentType(contentType)
-	                .content(this.json(notas)))
-	                .andExpect(status().isCreated());
+		this.mockMvc.perform(post("/caixaeletronico/centro")
+                .contentType(contentType)
+                .content(this.json(notas)))
+                .andExpect(status().isCreated());
+	}
+	@Test
+	public void criarComNomesIguais() throws IOException, Exception{
+		NotaDisponivel dez = new NotaDisponivel(10,5);
+		List<NotaDisponivel>  notas = new ArrayList<>();
+		notas.add(dez);
+		
+		this.mockMvc.perform(post("/caixaeletronico/centro")
+                .contentType(contentType)
+                .content(this.json(notas)))
+                .andExpect(status().isCreated());
+		this.mockMvc.perform(post("/caixaeletronico/centro")
+                .contentType(contentType)
+                .content(this.json(notas)))
+                .andExpect(status().isBadRequest());
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -1,11 +1,11 @@
-package com.cecrud.model;
+package com.cecore.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Nota implements Comparable<Nota>{
+public class NotaDisponivel implements Comparable<NotaDisponivel>{
 
 	@Id
 	private Integer valor;
@@ -13,10 +13,10 @@ public class Nota implements Comparable<Nota>{
 	@Column(length=10000)
 	private byte[] imagem;
 	 
-	public Nota() {
+	public NotaDisponivel() {
 	}
 
-	public Nota(Integer valor) {
+	public NotaDisponivel(Integer valor) {
 		this.valor = valor;
 	}
 
@@ -37,7 +37,7 @@ public class Nota implements Comparable<Nota>{
 	}
 
 	@Override
-	public int compareTo(Nota o) {
+	public int compareTo(NotaDisponivel o) {
 		return valor.compareTo(o.getValor());
 	}
 

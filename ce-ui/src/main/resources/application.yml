@@ -2,7 +2,7 @@ zuul:
   routes:
     cecore:
       url: http://localhost:8081
-    usuarios:
+    cecrud:
       url: http://localhost:8082
 
 ribbon:
