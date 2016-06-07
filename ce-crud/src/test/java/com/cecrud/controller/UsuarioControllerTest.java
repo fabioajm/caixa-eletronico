@@ -121,12 +121,11 @@ public class UsuarioControllerTest {
 		usuarioRepository.save(new Usuario("Usuario Teste 1", 100));
 		usuarioRepository.save(new Usuario("Teste 2", 100));
 		usuarioRepository.save(new Usuario("Usuario 2", 100));
-		mockMvc.perform(get("/usuarios/" + usuario.getId())
+		mockMvc.perform(get("/usuarios/search")
 				.param("q", "teste"))
 		         .andExpect(status().isOk())
-		         .andExpect(content().contentType(contentType))
-		         .andExpect(jsonPath("$.saldo").value(usuario.getSaldo()))
-		         .andExpect(jsonPath("$.nome").value(usuario.getNome()));
+		         .andExpect(content().contentType(contentType));
+		
 	}
 	
 }

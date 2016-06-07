@@ -46,7 +46,7 @@ public class UsuarioController {
 		return usuarioService.findOne(id);
 	}
 
-//	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(path = "/search", method = RequestMethod.GET)
 	public Collection<Usuario> search(@RequestParam("q") String queryTerm) {
 		Collection<Usuario> usuarios = usuarioService.search("%" + queryTerm + "%");
 		return usuarios == null ? new ArrayList<>() : usuarios;

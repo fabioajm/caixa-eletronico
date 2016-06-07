@@ -1,23 +1,23 @@
   <div class="row content">
     <div class="col-sm-2 sidenav">
-      <p><a href="/usuarios">Cadastrar</a></p>
-      <p><a href="/usuarios/consultar">Consultar</a></p>
+      <p><a href="#/usuarios">Cadastrar</a></p>
+      <p><a href="#/usuarios/consultar">Consultar</a></p>
     </div>
     <div class="col-sm-8 text-left"> 
      <h3 class="page-header">Cadastrar Usu&aacute;rios</h3>
      
-     <form action="index.html">
+     <form ng-submit="submit()">
   	<div class="row">
   	  <div class="form-group col-md-4">
   	  	<label for="exampleInputEmail1">Nome:</label>
-  	  	<input type="text" class="form-control" id="nome" placeholder="Digite o nume">
+  	  	<input type="text" class="form-control" id="nome" ng-model="usuario.nome" placeholder="Digite o nume">
   	  </div>
 	</div>
 	
 	<div class="row">
   	  <div class="form-group col-md-3">
   	  	<label for="exampleInputEmail1">Saldo:</label>
-  	  	<input type="number" class="form-control" id="saldo" placeholder="Digite o saldo">
+  	  	<input type="number" class="form-control" id="saldo" ng-model="usuario.saldo"  placeholder="Digite o saldo">
   	  </div>
 	</div>
 	

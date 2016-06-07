@@ -1,4 +1,4 @@
-package com.cecore.service;
+package com.cecore.model;
 
 public class Usuario {
 	
@@ -23,6 +23,9 @@ public class Usuario {
 	}
 	public void setValor(Integer valor) {
 		this.valor = valor;
+	}
+	public boolean temSaldo(int valor) {
+		return this.valor >= valor;
 	}
 	
 	

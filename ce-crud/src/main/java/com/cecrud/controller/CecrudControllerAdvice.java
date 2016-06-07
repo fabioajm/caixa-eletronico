@@ -23,7 +23,7 @@ public class CecrudControllerAdvice {
 	@ExceptionHandler(CadastroDuplicadoException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	Message caixaEletronicoExceptionHandler(CadastroDuplicadoException ex) {
-		return new Message("error", ex.getMessage());
+		return new Message("error", "Cadastro duplicado: " + ex.getMessage());
 	}
 
 }

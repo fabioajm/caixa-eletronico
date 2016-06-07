@@ -1,32 +1,66 @@
-  <div class="row content">
-    <div class="col-sm-2 sidenav">
-      <p><a href="/usuarios">Cadastrar</a></p>
-      <p><a href="/usuarios/consultar">Consultar</a></p>
-    </div>
-    <div class="col-sm-8 text-left"> 
-     <h3 class="page-header">Consultar Usu&aacute;rios</h3>
-     
-     <form action="index.html">
-  	<div class="row">
-  	  	<label for="exampleInputEmail1">Nome:</label>
-  	  <div class="form-group col-md-4">
-  	  	<input type="text" class="form-control" id="nome" placeholder="Digite o nume">
-  	  </div>
-  	  <button type="submit" class="btn btn-primary">pesquisar</button>
+
+<div class="row content">
+	<div class="col-sm-2 sidenav">
+		<p>
+			<a href="#/usuarios">Cadastrar</a>
+		</p>
+		<p>
+			<a href="#/usuarios/consultar">Consultar</a>
+		</p>
+	</div>
+	<div class="col-sm-8 text-left">
+		<h3 class="page-header">Consultar Usu&aacute;rios</h3>
+
+		<form ng-submit="search()">
+			<div class="row">
+				<label for="exampleInputEmail1">Nome:</label>
+				<div class="form-group col-md-4">
+					<input type="text" class="form-control" id="q" ng-model="q"
+						placeholder="Digite o nume">
+				</div>
+				<button type="submit" class="btn btn-primary">pesquisar</button>
+			</div>
+
+		</form>
+
+	 <div class="panel panel-default">
+
+			<!-- Default panel contents -->
+			<div class="panel-heading">
+				<span class="lead">Usu&aacute;rios
+				</span>
+			</div>
+
+			<div class="tablecontainer" >
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>Saldo</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="u in usuarios | filter: q">
+							<td><span ng-bind="u.nome"></span></td>
+							<td><span ng-bind="u.saldo"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+  
+
+
 	</div>
 
-  </form>
-  
-   
-    </div>
-    
-    
-    <div class="col-sm-2 sidenav">
-      <div class="well">
-        <p>ADS</p>
-      </div>
-      <div class="well">
-        <p>ADS</p>
-      </div>
-    </div>
-  </div>
+
+	<div class="col-sm-2 sidenav">
+		<div class="well">
+			<p>ADS</p>
+		</div>
+		<div class="well">
+			<p>ADS</p>
+		</div>
+	</div>
+</div>

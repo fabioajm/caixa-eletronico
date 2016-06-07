@@ -84,7 +84,7 @@ public class CaixaEletronicoControllerTest {
 		ce.depositarPorNota(20, 2);
 		ce.depositarPorNota(10, 2);
 		repository.save(ce);
-		 mockMvc.perform(get("/sacar/Teste/150"))
+		 mockMvc.perform(get("/caixaeletronico/Teste/sacar/1/150"))
          .andExpect(status().isOk())
          .andExpect(content().contentType(contentType))
          .andExpect(jsonPath("$[0].valor").value(50))
@@ -99,7 +99,7 @@ public class CaixaEletronicoControllerTest {
 		CaixaEletronico ce = new CaixaEletronico("Teste");
 		ce.depositarPorNota(10, 2);
 		repository.save(ce);
-		 mockMvc.perform(get("/sacar/Teste/30"))
+		 mockMvc.perform(get("/Teste/sacar/30"))
          .andExpect(status().isNotFound());
 	}
 	
@@ -109,11 +109,44 @@ public class CaixaEletronicoControllerTest {
 		List<Nota>  notas = new ArrayList<>();
 		notas.add(dez);
 		
-		this.mockMvc.perform(post("/depositar/fabio")
+		this.mockMvc.perform(post("/caixaeletronico/fabio/depositar")
                 .contentType(contentType)
                 .content(this.json(notas)))
                 .andExpect(status().isCreated());
 	}
+	
+	@Test
+	public void criar() throws IOException, Exception{
+		Nota dez = new Nota(10,5);
+		List<Nota>  notas = new ArrayList<>();
+		notas.add(dez);
+		CaixaEletronico ce = new CaixaEletronico("Teste");
+		ce.depositarNotas(notas);
+		
+		this.mockMvc.perform(post("/caixaeletronico")
+                .contentType(contentType)
+                .content(this.json(ce)))
+                .andExpect(status().isCreated());
+	}
+	
+	@Test
+	public void criarComNomesIguais() throws IOException, Exception{
+		Nota dez = new Nota(10,5);
+		List<Nota>  notas = new ArrayList<>();
+		notas.add(dez);
+		CaixaEletronico ce = new CaixaEletronico("Teste");
+		ce.depositarNotas(notas);
+		
+		this.mockMvc.perform(post("/caixaeletronico")
+                .contentType(contentType)
+                .content(this.json(ce)))
+                .andExpect(status().isCreated());
+		this.mockMvc.perform(post("/caixaeletronico")
+                .contentType(contentType)
+                .content(this.json(ce)))
+                .andExpect(status().isBadRequest());
+	}
+	
 	
 	@SuppressWarnings("unchecked")
 	protected String json(Object o) throws IOException {

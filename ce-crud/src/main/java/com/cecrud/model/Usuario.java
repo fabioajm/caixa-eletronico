@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import com.cecrud.exception.ValorInvalidoException;
+
 @Entity
 public class Usuario {
 
@@ -17,8 +19,8 @@ public class Usuario {
 	}
 
 	public Usuario(String nome, Integer saldo) {
-		this.nome = nome;
-		this.saldo = saldo;
+		setNome(nome);
+		setSaldo(saldo);
 	}
 	
 	
@@ -43,6 +45,9 @@ public class Usuario {
 	}
 
 	public void setSaldo(Integer saldo) {
+		if(saldo < 0){
+			throw new ValorInvalidoException("Saldo não pode ser menor que 0") ;
+		}
 		this.saldo = saldo;
 	}
 }

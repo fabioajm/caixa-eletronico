@@ -19,7 +19,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.RestTemplate;
 
 import com.cecore.CeCoreApplication;
+import com.cecore.exception.CadastroDuplicadoException;
 import com.cecore.exception.CaixaEletronicoNotFoundException;
+import com.cecore.model.CaixaEletronico;
 import com.cecore.model.Nota;
 import com.cecore.repository.CaixaEletronicoRepository;
 
@@ -45,6 +47,30 @@ public class CaixaEletronicoServiceTest {
 	public void init(){
 		repository.deleteAllInBatch();
 		nome = "caixa centro";
+	}
+	
+	@Test
+	public void criar() {
+		List<Nota> notas = new ArrayList<>();
+		notas.add(new Nota(10, 2));
+		notas.add(new Nota(50, 1));
+		CaixaEletronico ce = new CaixaEletronico(nome);
+		ce.depositarNotas(notas);
+		caixaEletronicoService.criar(ce);
+		assertEquals(new Integer(70), repository.findByNome(nome).getSaldo());
+		
+	}
+	
+	@Test(expected=CadastroDuplicadoException.class)
+	public void criarDuasVezes() {
+		List<Nota> notas = new ArrayList<>();
+		notas.add(new Nota(10, 2));
+		notas.add(new Nota(50, 1));
+		CaixaEletronico ce = new CaixaEletronico(nome);
+		caixaEletronicoService.criar(ce);
+		caixaEletronicoService.criar(ce);
+		assertEquals(new Integer(70), repository.findByNome(nome).getSaldo());
+		
 	}
 	
 	@Test

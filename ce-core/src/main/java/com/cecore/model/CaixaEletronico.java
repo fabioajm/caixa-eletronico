@@ -19,13 +19,13 @@ import com.cecore.exception.ValorInvalidoException;
 public class CaixaEletronico {
 	
 	@Id
-	@SequenceGenerator(name="saldo_seq_id", initialValue=1, allocationSize=100)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="saldo_seq_id")
+	@SequenceGenerator(name="caixa_seq_id", initialValue=1, allocationSize=100)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="caixa_seq_id")
 	private Long id;
 	@Column(unique=true)
 	private String  nome;
 	@OneToMany(cascade=CascadeType.ALL)
-	List<Nota> notas;
+	List<Nota> notas = new ArrayList<>();
 	
 	public CaixaEletronico() {
 	}
@@ -72,7 +72,7 @@ public class CaixaEletronico {
 		}
 		
 		if (valor > 0) {
-			throw new ValorInvalidoException("Saldo insuficiente");
+			throw new ValorInvalidoException("Saldo insuficiente no caixa");
 		}
 		return notas;
 	}
