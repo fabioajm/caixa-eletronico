@@ -115,4 +115,18 @@ public class UsuarioControllerTest {
 		         .andExpect(jsonPath("$.nome").value(usuario.getNome()));
 	}
 	
+	@Test
+	public void recuperarUsuarioPorNome() throws Exception {
+		usuarioRepository.save(new Usuario("Teste 1", 100));
+		usuarioRepository.save(new Usuario("Usuario Teste 1", 100));
+		usuarioRepository.save(new Usuario("Teste 2", 100));
+		usuarioRepository.save(new Usuario("Usuario 2", 100));
+		mockMvc.perform(get("/usuarios/" + usuario.getId())
+				.param("q", "teste"))
+		         .andExpect(status().isOk())
+		         .andExpect(content().contentType(contentType))
+		         .andExpect(jsonPath("$.saldo").value(usuario.getSaldo()))
+		         .andExpect(jsonPath("$.nome").value(usuario.getNome()));
+	}
+	
 }

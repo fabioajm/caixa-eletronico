@@ -31,5 +31,8 @@ public class UsuarioService {
 	public Usuario findOne(Long id) {
 		return repository.findOne(id);
 	}
+	public Collection<Usuario> search(String term){
+		return repository.search(term);
+	}
 
 }
