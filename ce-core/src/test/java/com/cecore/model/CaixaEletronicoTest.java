@@ -17,10 +17,10 @@ public class CaixaEletronicoTest {
 	@Before
 	public void init(){
 		caixaEletronico = new CaixaEletronico("Caixa Teste");
-		Nota dez = new Nota(10,6);
-		Nota vinte = new Nota(20,1);
-		Nota cinquenta = new Nota(50, 10);
-		Nota cem = new Nota(100,5);
+		Nota dez = new Nota(10.0,6);
+		Nota vinte = new Nota(20.0,1);
+		Nota cinquenta = new Nota(50.0, 10);
+		Nota cem = new Nota(100.0,5);
 		caixaEletronico.depositarNotas(Arrays.asList(dez, vinte, cinquenta, cem ));
 	}
 	
@@ -28,14 +28,14 @@ public class CaixaEletronicoTest {
 	public void notasDisponiveis(){
 		List<Nota> saldos =caixaEletronico.getNotas();
 		assertEquals(4, saldos.size());
-		assertEquals(new Integer(100), saldos.get(0).getValor());
-		assertEquals(new Integer(10), saldos.get(3).getValor());
+		assertEquals(new Double(100.0), saldos.get(0).getValor());
+		assertEquals(new Double(10.0), saldos.get(3).getValor());
 	}
 
 	@Test
 	public void sacarDez() {
 		List<Nota> saque = caixaEletronico.sacar(10);
-		assertEquals(new Integer(10), saque.get(0).getValor());
+		assertEquals(new Double(10.0), saque.get(0).getValor());
 		assertEquals(new Integer(1), saque.get(0).getQuantidade());		
 		assertEquals(1, saque.size());
 		assertEquals(new Integer(5),caixaEletronico.quantidadeDaNota(10));
@@ -44,7 +44,7 @@ public class CaixaEletronicoTest {
 	@Test
 	public void sacarCinquenta() {
 		List<Nota> saque = caixaEletronico.sacar(50);
-		assertEquals(new Integer(50), saque.get(0).getValor());
+		assertEquals(new Double(50.0), saque.get(0).getValor());
 		assertEquals(new Integer(1), saque.get(0).getQuantidade());		
 		assertEquals(1, saque.size());	
 		assertEquals(new Integer(9),caixaEletronico.quantidadeDaNota(50));
@@ -54,22 +54,22 @@ public class CaixaEletronicoTest {
 	public void sacarTrinta() {
 		List<Nota> notas = caixaEletronico.sacar(30);
 		assertEquals(2, notas.size());
-		assertEquals(new Integer(20), notas.get(0).getValor());
+		assertEquals(new Double(20.0), notas.get(0).getValor());
 		assertEquals(new Integer(1), notas.get(0).getQuantidade());		
-		assertEquals(new Integer(10), notas.get(1).getValor());
+		assertEquals(new Double(10.0), notas.get(1).getValor());
 		assertEquals(new Integer(1), notas.get(1).getQuantidade());		
 	}
 	@Test
 	public void sacarCentoENoventa() {
 		List<Nota> notas = caixaEletronico.sacar(190);
 		assertEquals(4, notas.size());
-		assertEquals(new Integer(100), notas.get(0).getValor());
+		assertEquals(new Double(100.0), notas.get(0).getValor());
 		assertEquals(new Integer(1), notas.get(0).getQuantidade());		
-		assertEquals(new Integer(50), notas.get(1).getValor());
+		assertEquals(new Double(50.0), notas.get(1).getValor());
 		assertEquals(new Integer(1), notas.get(1).getQuantidade());		
-		assertEquals(new Integer(20), notas.get(2).getValor());
+		assertEquals(new Double(20.0), notas.get(2).getValor());
 		assertEquals(new Integer(1), notas.get(2).getQuantidade());	
-		assertEquals(new Integer(10), notas.get(3).getValor());
+		assertEquals(new Double(10.0), notas.get(3).getValor());
 		assertEquals(new Integer(2), notas.get(3).getQuantidade());		
 	}
 	
@@ -77,13 +77,13 @@ public class CaixaEletronicoTest {
 	public void sacarMilEOitenta() {
 		List<Nota> notas = caixaEletronico.sacar(1080);
 		assertEquals(4, notas.size());
-		assertEquals(new Integer(100), notas.get(0).getValor());
+		assertEquals(new Double(100.0), notas.get(0).getValor());
 		assertEquals(new Integer(5), notas.get(0).getQuantidade());		
-		assertEquals(new Integer(50), notas.get(1).getValor());
+		assertEquals(new Double(50.0), notas.get(1).getValor());
 		assertEquals(new Integer(10), notas.get(1).getQuantidade());		
-		assertEquals(new Integer(20), notas.get(2).getValor());
+		assertEquals(new Double(20.0), notas.get(2).getValor());
 		assertEquals(new Integer(1), notas.get(2).getQuantidade());	
-		assertEquals(new Integer(10), notas.get(3).getValor());
+		assertEquals(new Double(10.0), notas.get(3).getValor());
 		assertEquals(new Integer(6), notas.get(3).getQuantidade());		
 	}
 	
@@ -97,9 +97,9 @@ public class CaixaEletronicoTest {
 		List<Nota> notas = caixaEletronico.sacar(120);
 		assertEquals(2, notas.size());
 		
-		assertEquals(new Integer(50), notas.get(0).getValor());
+		assertEquals(new Double(50.0), notas.get(0).getValor());
 		assertEquals(new Integer(2), notas.get(0).getQuantidade());		
-		assertEquals(new Integer(20), notas.get(1).getValor());
+		assertEquals(new Double(20.0), notas.get(1).getValor());
 		assertEquals(new Integer(1), notas.get(1).getQuantidade());	
 	}
 	
@@ -147,6 +147,6 @@ public class CaixaEletronicoTest {
 		caixaEletronico = new CaixaEletronico();
 		caixaEletronico.depositarPorNota(10, 10);
 		caixaEletronico.depositarPorNota(20, 5);
-		assertEquals(new Integer(200), caixaEletronico.getSaldo());
+		assertEquals(200.0, caixaEletronico.getSaldo(), 0.001);
 	}
 }

@@ -66,7 +66,7 @@ public class UsuarioControllerTest {
 	@Before
 	public void setup() throws Exception {
 		this.mockMvc = webAppContextSetup(webApplicationContext).build();
-		usuario = new Usuario("Usuario Teste", 50);
+		usuario = new Usuario("Usuario Teste", 50.0);
 		usuarioRepository.deleteAllInBatch();
 	}
 	
@@ -117,10 +117,10 @@ public class UsuarioControllerTest {
 	
 	@Test
 	public void recuperarUsuarioPorNome() throws Exception {
-		usuarioRepository.save(new Usuario("Teste 1", 100));
-		usuarioRepository.save(new Usuario("Usuario Teste 1", 100));
-		usuarioRepository.save(new Usuario("Teste 2", 100));
-		usuarioRepository.save(new Usuario("Usuario 2", 100));
+		usuarioRepository.save(new Usuario("Teste 1", 100.0));
+		usuarioRepository.save(new Usuario("Usuario Teste 1", 100.0));
+		usuarioRepository.save(new Usuario("Teste 2", 100.0));
+		usuarioRepository.save(new Usuario("Usuario 2", 100.0));
 		mockMvc.perform(get("/usuarios/search")
 				.param("q", "teste"))
 		         .andExpect(status().isOk())

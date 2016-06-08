@@ -84,7 +84,7 @@ public class CaixaEletronico {
 		}
 	}
 	
-	public void depositarPorNota(Integer valorNota, Integer quantidade){
+	public void depositarPorNota(double valorNota, Integer quantidade){
 		if(notas == null){
 			notas = new ArrayList<>();
 		}
@@ -101,7 +101,7 @@ public class CaixaEletronico {
 		}
 	}
 
-	public Integer quantidadeDaNota(int valorNota) {
+	public Integer quantidadeDaNota(double valorNota) {
 		for(Nota nota: notas) {
 			if(nota.getValor().equals(valorNota)){
 				return nota.getQuantidade();
@@ -115,8 +115,8 @@ public class CaixaEletronico {
 		}
 	}
 
-	public Integer getSaldo() {
-		Integer saldo = 0;
+	public Double getSaldo() {
+		double saldo = 0;
 		for (Nota nota : notas) {
 			saldo +=  nota.total();
 		}

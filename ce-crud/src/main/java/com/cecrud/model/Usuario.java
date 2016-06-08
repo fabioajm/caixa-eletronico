@@ -13,12 +13,12 @@ public class Usuario {
 	@GeneratedValue
 	private Long id;
 	private String nome;
-	private Integer saldo;
+	private Double saldo;
 
 	public Usuario() {
 	}
 
-	public Usuario(String nome, Integer saldo) {
+	public Usuario(String nome, Double saldo) {
 		setNome(nome);
 		setSaldo(saldo);
 	}
@@ -40,14 +40,23 @@ public class Usuario {
 		this.nome = nome;
 	}
 
-	public Integer getSaldo() {
+	public Double getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(Integer saldo) {
+	public void setSaldo(Double saldo) {
 		if(saldo < 0){
 			throw new ValorInvalidoException("Saldo não pode ser menor que 0") ;
 		}
 		this.saldo = saldo;
+	}
+	public boolean temSaldo(double valor) {
+		return this.saldo >= valor;
+	}
+	public void subtrairSaldo(double valor){
+		if(!temSaldo(valor)){
+			throw new ValorInvalidoException("Saldo insuficiente") ;
+		}
+		saldo -= valor;
 	}
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.cecrud.exception.ValorInvalidoException;
 import com.cecrud.model.Usuario;
 import com.cecrud.service.UsuarioService;
 
@@ -50,6 +51,16 @@ public class UsuarioController {
 	public Collection<Usuario> search(@RequestParam("q") String queryTerm) {
 		Collection<Usuario> usuarios = usuarioService.search("%" + queryTerm + "%");
 		return usuarios == null ? new ArrayList<>() : usuarios;
+	}
+	
+	@RequestMapping(path = "/{id}/sacar/{valor}", method = RequestMethod.GET)
+	public ResponseEntity<?>  sacar(@PathVariable Long id, @PathVariable Double valor) {
+		try {
+			usuarioService.sacar(id, valor);
+		} catch (ValorInvalidoException e) {
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>("ok",HttpStatus.OK);
 	}
 
 }

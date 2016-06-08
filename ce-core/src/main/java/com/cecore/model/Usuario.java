@@ -4,7 +4,7 @@ public class Usuario {
 	
 	private Long id;
 	private String nome;
-	private Integer valor;
+	private Double saldo;
 	
 	public Long getId() {
 		return id;
@@ -18,14 +18,14 @@ public class Usuario {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Integer getValor() {
-		return valor;
+	public Double getSaldo() {
+		return saldo;
 	}
-	public void setValor(Integer valor) {
-		this.valor = valor;
+	public void setSaldo(Double saldo) {
+		this.saldo = saldo;
 	}
-	public boolean temSaldo(int valor) {
-		return this.valor >= valor;
+	public boolean temSaldo(double valor) {
+		return this.saldo >= valor;
 	}
 	
 	

@@ -3,6 +3,7 @@ package com.cecore.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -41,11 +42,15 @@ public class CaixaEletronicoService {
 		if(usuario == null){
 			throw new CaixaEletronicoNotFoundException("Usuario não encontrado: " + idUsuario);
 		}
-		if(usuario.temSaldo(valor)){
+		if(!usuario.temSaldo(valor)){
 			throw new ValorInvalidoException("Saldo insuficiente: " + usuario.getNome());
 		}
 		List<Nota> notas = ce.sacar(valor);
 		caixaEletronicoRepository.save(ce);
+		ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://localhost:8082/usuarios/" + idUsuario+ "/sacar/"+valor, String.class);
+		if(!responseEntity.getStatusCode().is2xxSuccessful()){
+			throw new ValorInvalidoException(responseEntity.getBody().toString());
+		}
 		return notas;
 	}
 

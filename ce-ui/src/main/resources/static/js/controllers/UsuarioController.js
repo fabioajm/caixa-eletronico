@@ -1,6 +1,6 @@
 app.controller('UsuarioController', function($scope, $routeParams, $http, toastr) {
 	var self = this;
-	$scope.usuario = {nome:'test', saldo:200};
+	$scope.usuario = {nome:'', saldo:0};
     $scope.name = "UsuarioController";
     $scope.params = $routeParams;
     $scope.q ='';
@@ -10,12 +10,11 @@ app.controller('UsuarioController', function($scope, $routeParams, $http, toastr
     $scope.submit = function() {
     	$http.post('cecrud/usuarios',$scope.usuario).success(function(data) {
             $scope.notas = data;
-            console.log(data);
             reset();
+            toastr.sucess("Sucesso!");
           })
           .error(function(err){
         	  toastr.error(err.message);
-        	   console.log(err);
           });
     };
     

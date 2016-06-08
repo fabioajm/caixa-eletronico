@@ -105,7 +105,7 @@ public class CaixaEletronicoControllerTest {
 	
 	@Test
 	public void depositar() throws IOException, Exception{
-		Nota dez = new Nota(10,1);
+		Nota dez = new Nota(10.0,1);
 		List<Nota>  notas = new ArrayList<>();
 		notas.add(dez);
 		
@@ -117,7 +117,7 @@ public class CaixaEletronicoControllerTest {
 	
 	@Test
 	public void criar() throws IOException, Exception{
-		Nota dez = new Nota(10,5);
+		Nota dez = new Nota(10.0,5);
 		List<Nota>  notas = new ArrayList<>();
 		notas.add(dez);
 		CaixaEletronico ce = new CaixaEletronico("Teste");
@@ -131,7 +131,7 @@ public class CaixaEletronicoControllerTest {
 	
 	@Test
 	public void criarComNomesIguais() throws IOException, Exception{
-		Nota dez = new Nota(10,5);
+		Nota dez = new Nota(10.0,5);
 		List<Nota>  notas = new ArrayList<>();
 		notas.add(dez);
 		CaixaEletronico ce = new CaixaEletronico("Teste");

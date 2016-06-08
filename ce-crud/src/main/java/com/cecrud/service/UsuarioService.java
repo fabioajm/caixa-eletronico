@@ -2,6 +2,8 @@ package com.cecrud.service;
 
 import java.util.Collection;
 
+import javax.validation.ValidationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,15 @@ public class UsuarioService {
 	}
 	public Collection<Usuario> search(String term){
 		return repository.search(term);
+	}
+
+	public void sacar(Long id, Double valor) {
+		Usuario u = repository.findOne(id);
+		if(u == null){
+			throw new ValidationException("Usuario não encontrado:" + id);
+		}
+		u.subtrairSaldo(valor);
+		repository.save(u);
 	}
 
 }

@@ -1,6 +1,6 @@
 package com.cecore.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,13 +10,11 @@ import javax.transaction.Transactional;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.web.client.RestTemplate;
 
 import com.cecore.CeCoreApplication;
 import com.cecore.exception.CadastroDuplicadoException;
@@ -52,20 +50,20 @@ public class CaixaEletronicoServiceTest {
 	@Test
 	public void criar() {
 		List<Nota> notas = new ArrayList<>();
-		notas.add(new Nota(10, 2));
-		notas.add(new Nota(50, 1));
+		notas.add(new Nota(10., 2));
+		notas.add(new Nota(50.0, 1));
 		CaixaEletronico ce = new CaixaEletronico(nome);
 		ce.depositarNotas(notas);
 		caixaEletronicoService.criar(ce);
-		assertEquals(new Integer(70), repository.findByNome(nome).getSaldo());
+		assertEquals(new Double(70.0), repository.findByNome(nome).getSaldo());
 		
 	}
 	
 	@Test(expected=CadastroDuplicadoException.class)
 	public void criarDuasVezes() {
 		List<Nota> notas = new ArrayList<>();
-		notas.add(new Nota(10, 2));
-		notas.add(new Nota(50, 1));
+		notas.add(new Nota(10.0, 2));
+		notas.add(new Nota(50.0, 1));
 		CaixaEletronico ce = new CaixaEletronico(nome);
 		caixaEletronicoService.criar(ce);
 		caixaEletronicoService.criar(ce);
@@ -76,8 +74,8 @@ public class CaixaEletronicoServiceTest {
 	@Test
 	public void depositarCem() {
 		List<Nota> notas = new ArrayList<>();
-		notas.add(new Nota(10, 2));
-		notas.add(new Nota(50, 1));
+		notas.add(new Nota(10.0, 2));
+		notas.add(new Nota(50.0, 1));
 		caixaEletronicoService.depositar(nome, notas );
 		assertEquals(new Integer(70), repository.findByNome(nome).getSaldo());
 		
@@ -85,8 +83,8 @@ public class CaixaEletronicoServiceTest {
 	@Test
 	public void depositarDuasVezes() {
 		List<Nota> notas = new ArrayList<>();
-		notas.add(new Nota(10, 2));
-		notas.add(new Nota(50, 1));
+		notas.add(new Nota(10.0, 2));
+		notas.add(new Nota(50.0, 1));
 		caixaEletronicoService.depositar(nome, notas );
 		assertEquals(new Integer(70), repository.findByNome(nome).getSaldo());
 		caixaEletronicoService.depositar(nome, notas );
@@ -98,9 +96,9 @@ public class CaixaEletronicoServiceTest {
 	public void sacarMil() {
 		Long idUsuario = 4l;
 		List<Nota> notas = new ArrayList<>();
-		notas.add(new Nota(100, 9));
-		notas.add(new Nota(50, 2));
-		notas.add(new Nota(10, 5));
+		notas.add(new Nota(100.0, 9));
+		notas.add(new Nota(50.0, 2));
+		notas.add(new Nota(10.0, 5));
 		caixaEletronicoService.depositar(nome, notas );
 		caixaEletronicoService.sacar(nome, idUsuario,  1000 );
 		assertEquals(new Integer(50), repository.findByNome(nome).getSaldo());

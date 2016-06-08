@@ -7,19 +7,19 @@
 		<form ng-submit="sacar()">
 			<div class="row">
 				<div class="form-group col-md-4">
-					<label for="exampleInputEmail1">Usu&aacute;rio:</label> <input
-						type="text" class="form-control" id="nome"
-						ng-model="saque.nomeUsuario" placeholder="Digite o nume">
+					<label for="exampleInputEmail1">Usu&aacute;rio:</label> 
+					<select class="form-control" ng-model="saque.idUsuario">
+						<option ng-repeat="u in usuarios" value="{{u.id}}">{{u.nome}}</option>
+					</select>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="form-group col-md-4">
-					<label for="exampleInputEmail1">Caixa Eletr&ocirc;nico:</label> <select
+					<label for="exampleInputEmail1">Caixa Eletr&ocirc;nico:</label> 
+					<select
 						class="form-control" ng-model="saque.nomeCaixa">
-						<option >Mustard</option>
-						<option>Ketchup</option>
-						<option>Relish</option>
+						<option ng-repeat="ce in caixas">{{ce.nome}}</option>
 					</select>
 				</div>
 			</div>

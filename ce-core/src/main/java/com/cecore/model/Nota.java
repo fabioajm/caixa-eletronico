@@ -14,11 +14,11 @@ public class Nota implements Comparable<Nota>{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="nota_seq_id")
 	private Long id;
 	private Integer quantidade;
-	private Integer valor;
+	private Double valor;
 	
 	public Nota() {}
 	
-	public Nota(Integer valor, int quantidade) {
+	public Nota(Double valor, int quantidade) {
 		this.valor = valor;
 		this.quantidade = quantidade;
 	}
@@ -34,10 +34,10 @@ public class Nota implements Comparable<Nota>{
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
-	public Integer getValor() {
+	public Double getValor() {
 		return valor;
 	}
-	public void setValor(Integer valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
 	public void subtrairQuantidade(Integer quantidade){
@@ -48,9 +48,9 @@ public class Nota implements Comparable<Nota>{
 		this.quantidade +=quantidade;
 	}
 
-	public Integer total() {
+	public Double total() {
 		if(quantidade == null || valor == null){
-			return 0;
+			return 0.0;
 		}
 		return quantidade * valor;
 	}
