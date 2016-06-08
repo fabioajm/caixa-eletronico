@@ -14,7 +14,8 @@ app.controller('CaixaController', function($scope, $routeParams, $http, toastr) 
     $scope.submit = function(){
     	$http.post('cecore/caixaeletronico', $scope.caixa).success(function(data) {
     		$scope.data = data;
-    		toastr.sucess(err.message);
+    		reset();
+    		 toastr.sucess("Sucesso!");
     	}).error(function(err){
     		toastr.error(err.message);
     	});
