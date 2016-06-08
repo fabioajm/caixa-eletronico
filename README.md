@@ -24,6 +24,9 @@ cd ..\ce-core
 start mvn spring-boot:run
 
 cd ..\ce-crud
+start mvn spring-boot:run
+
+cd ..\ce-ui
 mvn spring-boot:run
 
 acesse http://localhost:8080
