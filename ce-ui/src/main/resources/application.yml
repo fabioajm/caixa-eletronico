@@ -1,0 +1,12 @@
+zuul:
+  routes:
+    cecore:
+      url: http://localhost:8081
+    cecrud:
+      url: http://localhost:8082
+
+ribbon:
+  eureka:
+    enabled: false
+
+   

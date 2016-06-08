@@ -1,0 +1,29 @@
+{
+  "name": "ce-ui",
+  "homepage": "https://github.com/fabioajm/caixa-eletronico",
+  "authors": [
+    "fabioajm <fab.ajm@gmail.com>"
+  ],
+  "description": "Projeto front-end, que deve conter o automatizador de tarefas Gulp ou Grunt, e as telas do sistema",
+  "main": "",
+  "license": "private",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/main/resources/static/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "angularjs#^1.5.6",
+    "angular-bootstrap": "^1.3.3",
+    "angular-toastr": "^1.7.0",
+    "angular-animate": "^1.5.6",
+    "bootstrap": "^3.3.6",
+    "angular-touch": "^1.5.6",
+    "angular-locale-pt-br": "^1.3.15",
+    "angular-route": "^1.5.6",
+    "angular-input-masks": "^2.3.0"
+  }
+}
