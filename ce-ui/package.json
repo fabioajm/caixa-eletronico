@@ -8,6 +8,7 @@
     "stream-series": "^0.1.1"
   },
   "devDependencies": {
+    "bluebird": "^3.4.0",
     "bower": "~1.7.9",
     "event-stream": "^3.3.2",
     "gulp": "^3.9.1",
@@ -20,7 +21,9 @@
     "jshint": "^2.9.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "npm install",
+    "build": "gulp --no-color"
   },
   "keywords": [
     "caixa",
