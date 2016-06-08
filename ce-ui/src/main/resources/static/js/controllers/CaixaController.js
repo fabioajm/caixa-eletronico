@@ -35,6 +35,6 @@ app.controller('CaixaController', function($scope, $routeParams, $http, toastr) 
 	    $scope.cem  = {valor:100, quantidade:0};
 	    notas =[$scope.dez, $scope.vinte, $scope.cinquenta, $scope.cem];
 	    $scope.caixa = {nome:'', notas:notas};
-    }
+    };
     
 });

@@ -8,6 +8,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +78,7 @@ public class CaixaEletronicoServiceTest {
 		notas.add(new Nota(10.0, 2));
 		notas.add(new Nota(50.0, 1));
 		caixaEletronicoService.depositar(nome, notas );
-		assertEquals(new Integer(70), repository.findByNome(nome).getSaldo());
+		assertEquals(new Double(70.0), repository.findByNome(nome).getSaldo());
 		
 	}
 	@Test
@@ -86,12 +87,13 @@ public class CaixaEletronicoServiceTest {
 		notas.add(new Nota(10.0, 2));
 		notas.add(new Nota(50.0, 1));
 		caixaEletronicoService.depositar(nome, notas );
-		assertEquals(new Integer(70), repository.findByNome(nome).getSaldo());
+		assertEquals(new Double(70.0), repository.findByNome(nome).getSaldo());
 		caixaEletronicoService.depositar(nome, notas );
-		assertEquals(new Integer(140), repository.findByNome(nome).getSaldo());
+		assertEquals(new Double(140.0), repository.findByNome(nome).getSaldo());
 		
 	}
 
+	@Ignore("not ready yet, need mock resttemplate") 
 	@Test
 	public void sacarMil() {
 		Long idUsuario = 4l;

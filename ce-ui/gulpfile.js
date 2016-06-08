@@ -7,6 +7,7 @@ var es = require('event-stream');
 
 var inject         = require('gulp-inject');
 var series         = require('stream-series');
+var runSequence    = require('gulp-run-sequence');
 
 
 gulp.task('clean', function(){
@@ -39,12 +40,15 @@ gulp.task('htmlmin', function(){
 	.pipe(gulp.dest('dist/view'));
 });
 
-gulp.task('index',['concat'], function () {
+gulp.task('index', function () {
     var target = gulp.src("src/main/resources/static/index.html");
     var sources = gulp.src(['src/main/resources/static/dist/js/*.js'], {read: false});
     return target.pipe(inject(series(sources), {relative: true}))
         .pipe(gulp.dest('src/main/resources/static/'));
 });
-
-gulp.task('default',['jshint','uglify']);
-gulp.task('dev',['jshint','index']);
+gulp.task('default', function () {
+    runSequence('jshint', 'concat', 'index');
+});
+gulp.task('dev',function () {
+    runSequence('jshint', 'concat', 'index');
+});
